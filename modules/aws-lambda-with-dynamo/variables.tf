@@ -8,7 +8,6 @@ variable "name" {
   description = "The name of the lambda function."
 }
 
-
 variable "tables" {
   type = map(object({
     name : string,
