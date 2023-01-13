@@ -6,3 +6,6 @@ bundle_lambda: yarn_install
 
 deploy: bundle_lambda
 	terraform apply
+
+destroy:
+	terraform destroy
