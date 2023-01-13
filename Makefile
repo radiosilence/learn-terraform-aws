@@ -7,6 +7,9 @@ bundle_lambda: yarn_install
 init:
 	terraform init
 
+validate: 
+	terraform validate
+
 apply: init
 	terraform apply -auto-approve
 
