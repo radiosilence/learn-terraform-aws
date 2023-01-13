@@ -36,7 +36,7 @@ resource "aws_cloudwatch_log_group" "api_gw" {
 
 module "handler" {
   source    = "../handler"
-  route_key = each.value.route_key
+  route_key = each.key
   handler   = each.value.handler
 
   for_each = var.routes

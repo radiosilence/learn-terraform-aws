@@ -18,12 +18,11 @@ variable "aws_region" {
 variable "routes" {
   type = map(object({
     handler : string,
-    route_key : string,
     memory_size : optional(number, 256),
-    tables : optional(map(object({
+    tables : map(object({
       name : string,
       arn : string,
-    })), {})
+    }))
   }))
   description = "A map of routes to create."
   default     = {}
