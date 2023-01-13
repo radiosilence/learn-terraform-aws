@@ -13,12 +13,20 @@ provider "aws" {
 
 module "my_lambda" {
   source   = "./modules/aws-lambda-with-dynamo"
-  filename = "./lambda/package/my-lambda.ts.zip"
+  filename = "./lambda/package/src/my-lambda.ts.zip"
   name     = "jc-lambda-test-${var.env}"
   tables = {
-    MY_TABLE_TABLE_NAME = {
-      name = aws_dynamodb_table.my_table.name
-      arn  = aws_dynamodb_table.my_table.arn
-    }
+    MY_TABLE_TABLE_NAME     = aws_dynamodb_table.my_table
+    POTATO_TABLE_TABLE_NAME = aws_dynamodb_table.potato_table
+  }
+}
+
+module "another_lambda" {
+  source   = "./modules/aws-lambda-with-dynamo"
+  filename = "./lambda/package/src/my-lambda.ts.zip"
+  name     = "jc-potato-test-${var.env}"
+  tables = {
+    MY_TABLE_TABLE_NAME     = aws_dynamodb_table.my_table
+    POTATO_TABLE_TABLE_NAME = aws_dynamodb_table.potato_table
   }
 }

@@ -22,3 +22,9 @@ variable "runtime" {
   description = "The runtime environment for the Lambda function."
   default     = "nodejs16.x"
 }
+
+variable "memory_size" {
+  type        = number
+  description = "The amount of memory in MB your Lambda function can use at runtime."
+  default     = 256
+}

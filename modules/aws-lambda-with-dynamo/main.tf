@@ -18,7 +18,7 @@ resource "aws_iam_role" "role" {
 resource "aws_iam_policy" "lambda_policy" {
   policy = jsonencode({
     Version = "2012-10-17",
-    Statement = [for k, table in var.tables.map : {
+    Statement = [for k, table in var.tables : {
       Effect = "Allow",
       Action = [
         "dynamodb:BatchGetItem",
@@ -53,7 +53,10 @@ resource "aws_lambda_function" "lambda" {
   # source_code_hash = "${base64sha256(file("lambda_function_payload.zip"))}"
   source_code_hash = filebase64sha256(var.filename)
 
+  memory_size = var.memory_size
   runtime     = var.runtime
-  environment = { for k, table in var.tables.map : k => table.name }
+  environment {
+    variables = { for k, table in var.tables : k => table.name }
+  }
 }
 
