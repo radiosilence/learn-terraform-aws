@@ -26,7 +26,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
 
   // NOTE: Not atomic/concurrency safe in any way
   if (data.Item) {
-    Item.count += data.Item.count;
+    Item.count += 1;
   }
 
   console.log("Sending PutCommand...");
