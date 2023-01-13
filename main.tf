@@ -12,6 +12,12 @@ provider "aws" {
   region = var.aws_region
 }
 
+locals {
+  tables = {
+    visitors = aws_dynamodb_table.visitors
+  }
+}
+
 module "api" {
   source     = "./modules/aws-api"
   name       = "jc-api"
@@ -21,15 +27,11 @@ module "api" {
   routes = {
     "GET /hello" = {
       handler = "demo/hello"
-      tables = {
-        visitors = aws_dynamodb_table.visitors
-      }
+      tables  = local.tables
     }
     "GET /hello/{name}" = {
       handler = "demo/hello"
-      tables = {
-        visitors = aws_dynamodb_table.visitors
-      }
+      tables  = local.tables
     }
   }
 }
