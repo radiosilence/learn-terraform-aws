@@ -33,5 +33,9 @@ module "api" {
       handler = "demo/hello"
       tables  = local.tables
     }
+    "GET /hello/{name}/oh/wow-what_a/long.route/{potato+}" = {
+      handler = "demo/hello"
+      tables  = local.tables
+    }
   }
 }

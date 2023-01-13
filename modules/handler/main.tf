@@ -1,5 +1,5 @@
 locals {
-  name_safe = replace(replace(replace(replace(var.route_key, " ", ""), "/", "-"), "{", ""), "}", "")
+  name_safe = replace(replace(replace(replace(replace(replace(var.route_key, " ", ""), "/", "-"), "{", ""), "}", ""), "+", ""), ".", "")
 }
 
 locals {
