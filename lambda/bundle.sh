@@ -15,5 +15,6 @@ for f in ./src/handlers/**/*.ts; do
         --format=cjs \
         --external:aws-sdk \
         --outfile="$bundle_file"
-    (zip -j "$package_file" "$bundle_file")
+    find "$build_dir" -exec touch -t 198909022153 {} +
+    (zip -jX "$package_file" "$bundle_file")
 done

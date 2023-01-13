@@ -20,7 +20,7 @@ variable "tables" {
 variable "runtime" {
   type        = string
   description = "The runtime environment for the Lambda function."
-  default     = "nodejs16.x"
+  default     = "nodejs18.x"
 }
 
 variable "memory_size" {
