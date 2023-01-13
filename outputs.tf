@@ -18,10 +18,10 @@ output "base_url" {
 
 output "hello_url" {
   description = "The URL of the hello route."
-  value       = "${aws_apigatewayv2_stage.lambda.invoke_url}/hello"
+  value       = "${aws_apigatewayv2_stage.lambda.invoke_url}hello"
 }
 
 output "hello_person_url" {
   description = "The URL of the hello/{name} route."
-  value       = "${aws_apigatewayv2_stage.lambda.invoke_url}/hello/baz"
+  value       = "${aws_apigatewayv2_stage.lambda.invoke_url}hello/baz"
 }
