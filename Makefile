@@ -5,7 +5,7 @@ lambda_bundle: lambda_yarn
 	(cd lambda && yarn bundle)
 
 init:
-	terraform init
+	terraform init -upgrade
 
 validate: 
 	terraform validate
