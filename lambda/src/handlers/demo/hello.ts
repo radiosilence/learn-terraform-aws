@@ -1,6 +1,6 @@
 import { GetCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { APIGatewayProxyHandler } from "aws-lambda";
-import { ddbDocClient } from "../../libs/ddbDocClient";
+import { ddbDocClient } from "../../clients/ddbDocClient";
 
 export const handler: APIGatewayProxyHandler = async (event, context) => {
   const debug = { event, context, env: process.env };
