@@ -10,6 +10,7 @@ module "hello_handler" {
     visitors = aws_dynamodb_table.visitors
   }
 }
+
 module "hello_name_handler" {
   source    = "./modules/handler"
   route_key = "GET /hello/{name}"
