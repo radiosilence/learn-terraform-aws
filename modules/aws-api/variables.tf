@@ -19,6 +19,7 @@ variable "routes" {
   type = map(object({
     handler : string,
     route_key : string,
+    memory_size : optional(number),
     tables : map(object({
       name : string,
       arn : string,
