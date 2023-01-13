@@ -9,8 +9,12 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
       "content-type": "application/json",
     },
     body: JSON.stringify({
-      message: "hello world",
-      debug,
+      message: `hello ${event.pathParameters?.name ?? "world"}!`,
+      queryStringParameters: event.queryStringParameters,
+      pathParameters: event.pathParameters,
+      tables: {
+        potato: process.env.TABLE_potato,
+      },
     }),
   };
 };
