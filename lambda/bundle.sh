@@ -13,7 +13,6 @@ for f in ./src/handlers/**/*.ts; do
         --bundle "$f" \
         --target=node16 \
         --format=cjs \
-        --external:aws-sdk \
         --external:"@aws-sdk/*" \
         --outfile="$bundle_file"
     find "$build_dir" -exec touch -t 198909022153 {} +
