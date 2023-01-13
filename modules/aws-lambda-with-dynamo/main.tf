@@ -1,21 +1,19 @@
 
 resource "aws_iam_role" "role" {
   assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Principal = {
-          Service = "lambda.amazonaws.com"
-        },
-        Effect = "Allow",
-        Sid    = ""
+    Version = "2012-10-17"
+    Statement = [{
+      Action = "sts:AssumeRole"
+      Effect = "Allow"
+      Sid    = ""
+      Principal = {
+        Service = "lambda.amazonaws.com"
       }
-    ]
+    }]
   })
 }
 
-resource "aws_iam_policy" "lambda_policy" {
+resource "aws_iam_policy" "lambda_dynamodb" {
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [for k, table in var.tables : {
@@ -35,9 +33,20 @@ resource "aws_iam_policy" "lambda_policy" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_attach" {
+resource "aws_iam_role_policy_attachment" "lambda_dynamodb_policy" {
   role       = aws_iam_role.role.name
-  policy_arn = aws_iam_policy.lambda_policy.arn
+  policy_arn = aws_iam_policy.lambda_dynamodb.arn
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_policy" {
+  role       = aws_iam_role.role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
+
+resource "aws_cloudwatch_log_group" "lambda" {
+  name = "/aws/lambda/${aws_lambda_function.lambda.function_name}"
+
+  retention_in_days = 30
 }
 
 resource "aws_lambda_function" "lambda" {

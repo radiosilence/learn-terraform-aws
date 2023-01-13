@@ -10,5 +10,5 @@ for f in ./src/**/*.ts; do
     mkdir -p "$build_dir"
     echo "Compiling $name:  $f -> $bundle_file -> $package_file..."
     npx esbuild --bundle "$f" --target=node16 --format=cjs --external:aws-sdk --outfile="$bundle_file"
-    (zip "$package_file" "$bundle_file")
+    (zip -j "$package_file" "$bundle_file")
 done
