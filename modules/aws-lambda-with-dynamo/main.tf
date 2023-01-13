@@ -56,7 +56,7 @@ resource "aws_lambda_function" "lambda" {
   memory_size = var.memory_size
   runtime     = var.runtime
   environment {
-    variables = { for k, table in var.tables : k => table.name }
+    variables = { for k, table in var.tables : "${k}_TABLE_NAME" => table.name }
   }
 }
 

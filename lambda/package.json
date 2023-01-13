@@ -8,10 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "esbuild": "esbuild --bundle src/my-lambda.ts --target=node16 --format=cjs --external:aws-sdk --outfile=build/index.js",
-    "watch": "tsc -w",
-    "zip": "(cd build && zip package.zip index.js )",
-    "bundle": "yarn esbuild && yarn zip"
+    "bundle": "./bundle.sh"
   },
   "devDependencies": {
     "@aws-sdk/types": "^3.226.0",

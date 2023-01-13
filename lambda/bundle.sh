@@ -1,9 +1,14 @@
 #!/bin/bash
 
-rm -rf ./build ./package
-for f in ./src/*.ts; do
-    echo "Compiling $f..."
-    npx esbuild --bundle src/my-lambda.ts --target=node16 --format=cjs --external:aws-sdk --outfile="build/index".js
-    mkdir -p "./package/src"
-    (zip "./package/$f.zip" "./build/index.js")
+rm -rf ./build
+for f in ./src/**/*.ts; do
+    name=${f/\.\/src\//}
+    name=${name/\.ts/}
+    build_dir="./build/$name"
+    bundle_file="$build_dir/index.js"
+    package_file="$build_dir/package.zip"
+    mkdir -p "$build_dir"
+    echo "Compiling $name:  $f -> $bundle_file -> $package_file..."
+    npx esbuild --bundle "$f" --target=node16 --format=cjs --external:aws-sdk --outfile="$bundle_file"
+    (zip "$package_file" "$bundle_file")
 done

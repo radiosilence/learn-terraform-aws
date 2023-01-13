@@ -1,3 +1,4 @@
+"use strict";
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
@@ -16,13 +17,19 @@ var __copyProps = (to, from, except, desc) => {
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 
-// src/my-lambda.ts
-var my_lambda_exports = {};
-__export(my_lambda_exports, {
+// src/demo/hello.ts
+var hello_exports = {};
+__export(hello_exports, {
   handler: () => handler
 });
-module.exports = __toCommonJS(my_lambda_exports);
-function handler(blah) {
-  console.log("i have run", blah, process.env.MY_TABLE_NAME);
-  return "hi";
-}
+module.exports = __toCommonJS(hello_exports);
+var handler = async (event, context) => {
+  console.log("i have run", event, context, process.env.MY_TABLE_NAME);
+  return {
+    statusCode: 200,
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify({ message: "hello world", event, context })
+  };
+};
