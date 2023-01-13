@@ -38,6 +38,7 @@ module "handler" {
   source    = "../handler"
   route_key = each.key
   handler   = each.value.handler
+  prefix    = var.name
 
   for_each = var.routes
 

@@ -64,6 +64,7 @@ resource "aws_lambda_function" "lambda" {
 
   memory_size = var.memory_size
   runtime     = var.runtime
+  tags        = var.tags
 
   environment {
     variables = merge(

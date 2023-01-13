@@ -3,6 +3,7 @@ variable "api" {
   type = object({
     id            = string
     execution_arn = string
+    name          = string
   })
 }
 
@@ -46,4 +47,10 @@ variable "memory_size" {
 variable "aws_region" {
   type        = string
   description = "AWS region"
+}
+
+variable "prefix" {
+  type        = string
+  description = "The prefix to use for all resources."
+  default     = ""
 }
