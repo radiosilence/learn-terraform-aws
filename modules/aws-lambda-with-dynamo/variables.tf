@@ -28,3 +28,8 @@ variable "memory_size" {
   description = "The amount of memory in MB your Lambda function can use at runtime."
   default     = 256
 }
+
+variable "aws_region" {
+  type        = string
+  description = "AWS region"
+}

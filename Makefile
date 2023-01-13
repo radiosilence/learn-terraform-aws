@@ -1,7 +1,7 @@
-yarn_install:
+lambda_yarn:
 	(cd lambda && yarn)
 
-bundle_lambda: yarn_install
+lambda_bundle: lambda_yarn
 	(cd lambda && yarn bundle)
 
 init:
@@ -13,7 +13,7 @@ validate:
 apply: init
 	terraform apply -auto-approve
 
-deploy: bundle_lambda apply
+deploy: lambda_bundle apply
 	
 destroy:
 	terraform destroy

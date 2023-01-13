@@ -65,7 +65,12 @@ resource "aws_lambda_function" "lambda" {
   memory_size = var.memory_size
   runtime     = var.runtime
   environment {
-    variables = { for k, table in var.tables : "TABLE_${k}" => table.name }
+    variables = merge(
+      { for k, table in var.tables : "TABLE_${k}" => table.name },
+      {
+        REGION = var.aws_region
+      }
+    )
   }
 }
 
