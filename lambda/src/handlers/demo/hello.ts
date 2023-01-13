@@ -6,9 +6,9 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   const debug = { event, context, env: process.env };
   console.log("Running handler", debug);
 
-  const TableName = process.env.TABLE_potato;
+  const TableName = process.env.TABLE_visitors;
   if (!TableName) {
-    throw new Error("TABLE_potato is not defined");
+    throw new Error("TABLE_visitors is not defined");
   }
 
   console.log("TableName", TableName);
@@ -18,11 +18,11 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
   console.log("name", name);
   console.log("Sending GetCommand...");
   const data = await ddbDocClient.send(
-    new GetCommand({ TableName, Key: { primaryKey: name } })
+    new GetCommand({ TableName, Key: { name } })
   );
 
   console.log("Got data", data);
-  const Item = data?.Item ?? { id: name, count: 1 };
+  const Item = data?.Item ?? { name, count: 1 };
 
   // NOTE: Not atomic/concurrency safe in any way
   if (data.Item) {
@@ -44,7 +44,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
       data: Item,
       oldData: data?.Item,
       tables: {
-        potato: TableName,
+        visitors: TableName,
       },
     }),
   };

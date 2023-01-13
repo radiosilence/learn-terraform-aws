@@ -7,6 +7,6 @@ module "lambda_hello_world" {
   aws_region = var.aws_region
 
   tables = {
-    potato = aws_dynamodb_table.potato
+    visitors = aws_dynamodb_table.visitors
   }
 }
