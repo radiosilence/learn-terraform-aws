@@ -14,10 +14,9 @@ bundle() {
     echo "Compiling $name:  $1 -> $bundle_file -> $package_file..."
     yarn esbuild \
         --bundle "$f" \
-        --target=node16 \
+        --target=node18 \
         --format=esm \
         --external:"@aws-sdk/*" \
-        --platform="node" \
         --outfile="$bundle_file"
     find "$build_dir" -exec touch -t 198909022153 {} +
     (zip -jX "$package_file" "$bundle_file")
