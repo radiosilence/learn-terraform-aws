@@ -34,8 +34,9 @@ module "api" {
       tables  = local.tables
     }
     "GET /hello/{name}/oh/wow-what_a/long.route/{potato+}" = {
-      handler = "demo/hello"
-      tables  = local.tables
+      handler     = "demo/hello"
+      tables      = local.tables
+      memory_size = 1024
     }
   }
 }
