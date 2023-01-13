@@ -1,5 +1,5 @@
 resource "aws_apigatewayv2_api" "api" {
-  name          = "gateway-${var.env}"
+  name          = "${var.name}-${var.env}"
   protocol_type = "HTTP"
 }
 
@@ -29,7 +29,7 @@ resource "aws_apigatewayv2_stage" "api" {
 }
 
 resource "aws_cloudwatch_log_group" "api_gw" {
-  name = "/aws/api_gw/${aws_apigatewayv2_api.lambda.name}"
+  name = "/aws/api_gw/${aws_apigatewayv2_api.api.name}"
 
   retention_in_days = 30
 }
