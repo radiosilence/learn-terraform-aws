@@ -1,4 +1,4 @@
-import { GetCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { APIGatewayProxyHandler } from "aws-lambda";
 import { ddbDocClient } from "../../libs/ddbDocClient";
 
@@ -17,20 +17,29 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
 
   console.log("name", name);
   console.log("Sending GetCommand...");
+  await ddbDocClient.send(
+    new UpdateCommand({
+      TableName,
+      Key: { name },
+      UpdateExpression: "set #count = if_not_exists(#count, :zero) + :incr",
+      ExpressionAttributeNames: {
+        "#count": "count",
+      },
+      ExpressionAttributeValues: {
+        ":zero": 0,
+        ":incr": 1,
+      },
+    })
+  );
+
   const data = await ddbDocClient.send(
-    new GetCommand({ TableName, Key: { name } })
+    new GetCommand({
+      TableName,
+      Key: { name },
+    })
   );
 
   console.log("Got data", data);
-  const Item = data?.Item ?? { name, count: 1 };
-
-  // NOTE: Not atomic/concurrency safe in any way
-  if (data.Item) {
-    Item.count += 1;
-  }
-
-  console.log("Sending PutCommand...");
-  await ddbDocClient.send(new PutCommand({ TableName, Item }));
 
   return {
     statusCode: 200,
@@ -41,8 +50,7 @@ export const handler: APIGatewayProxyHandler = async (event, context) => {
       message: `hello ${event.pathParameters?.name ?? "world"}!`,
       queryStringParameters: event.queryStringParameters,
       pathParameters: event.pathParameters,
-      data: Item,
-      oldData: data?.Item,
+      Item: data?.Item,
       tables: {
         visitors: TableName,
       },
