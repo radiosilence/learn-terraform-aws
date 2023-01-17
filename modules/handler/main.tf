@@ -7,8 +7,10 @@ locals {
 }
 module "lambda" {
   source   = "../aws-lambda-with-dynamo"
-  filename = "./lambda/build/${var.handler}/package.zip"
+  filename = var.filename
   name     = local.name_full
+  handler  = var.handler
+  runtime  = var.runtime
 
   aws_region = var.aws_region
   tables     = var.tables

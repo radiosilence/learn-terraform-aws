@@ -18,10 +18,17 @@ variable "route_key" {
   type        = string
 }
 
+variable "filename" {
+  type        = string
+  description = "The path to handler package"
+}
+
 variable "handler" {
   type        = string
-  description = "The path to handler function relative to handlers directory (e.g. demo/hello)"
+  description = "The handler function"
+  default     = "index.handler"
 }
+
 
 variable "tables" {
   type = map(object({

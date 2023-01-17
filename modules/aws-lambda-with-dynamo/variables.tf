@@ -8,6 +8,12 @@ variable "name" {
   description = "The name of the lambda function."
 }
 
+variable "handler" {
+  type        = string
+  default     = "index.handler"
+  description = "Handler"
+}
+
 variable "tables" {
   type = map(object({
     name : string,

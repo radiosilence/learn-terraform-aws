@@ -4,6 +4,9 @@ lambda_yarn:
 lambda_bundle: lambda_yarn
 	(cd lambda && yarn bundle)
 
+lambdago_bundle:
+	(cd lambdago/handlers/demo && GOOS=linux GOARCH=amd64 go build -o ./build/main main.go && chmod +x ./build/main && zip -jX ./build/package.zip ./build/main)
+
 init:
 	terraform init -upgrade
 
@@ -13,7 +16,7 @@ validate:
 apply: init
 	terraform apply -auto-approve
 
-deploy: lambda_bundle apply
+deploy:  lambdago_bundle apply
 	
 destroy:
 	terraform destroy

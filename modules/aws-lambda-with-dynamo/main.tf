@@ -55,7 +55,7 @@ resource "aws_lambda_function" "lambda" {
   filename      = var.filename
   function_name = var.name
   role          = aws_iam_role.role.arn
-  handler       = "index.handler"
+  handler       = var.handler
 
   # The filebase64sha256() function is available in Terraform 0.11.12 and later
   # For Terraform 0.11.11 and earlier, use the base64sha256() function and the file() function:
