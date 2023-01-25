@@ -16,9 +16,9 @@ validate:
 apply: init
 	terraform apply -auto-approve
 
-deploy:  lambdago_bundle apply
+deploy: lambdago_bundle apply
 	
-destroy:
+destroy: lambdago_bundle
 	terraform destroy
 
 invoke: deploy
